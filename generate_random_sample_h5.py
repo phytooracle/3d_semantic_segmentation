@@ -13,20 +13,18 @@ import glob
 import h5py
 import numpy as np
 import random
-from plyfile import PlyData, PlyElement
-
 
 # --------------------------------------------------
 def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description='PLY to H5 with random sampling',
+        description='NPY to H5 with random sampling',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('dir',
                         metavar='dir',
-                        help='Directory containing PLY files')
+                        help='Directory containing .npy files')
 
     parser.add_argument('-n',
                         '--num_points',
@@ -49,16 +47,13 @@ def get_args():
                         type=float,
                         default=0.8)
 
-    # parser.add_argument('-o',
-    #                     '--on',
-    #                     help='A boolean flag',
-    #                     action='store_true')
-
     return parser.parse_args()
 
 
 # --------------------------------------------------
 def get_paths(directory):
+    """Get NPY paths"""
+
     ortho_list = []
 
     for root, dirs, files in os.walk(directory):
@@ -78,6 +73,8 @@ def get_paths(directory):
 
 # --------------------------------------------------
 def sub_sample(filename, num_points):
+    """Sample the points within the NPY file"""
+
     full_data = np.load(filename).tolist()
     sampled_data = np.array(random.sample(full_data, num_points))
     sampled_data.shape
@@ -89,7 +86,7 @@ def sub_sample(filename, num_points):
 
 # --------------------------------------------------
 def main():
-    """Make a jazz noise here"""
+    """Create H5 file"""
 
     args = get_args()
     random.seed(10)
