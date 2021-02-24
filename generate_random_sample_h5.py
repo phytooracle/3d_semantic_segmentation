@@ -118,6 +118,7 @@ def main():
         f = h5py.File(out_path, 'w')
         data = f.create_dataset("data", data = agg_data)
         pid = f.create_dataset("label", data = agg_label)
+        print(f'Finished generating {set_name} set, see {out_path}.')
 
 
 # --------------------------------------------------
