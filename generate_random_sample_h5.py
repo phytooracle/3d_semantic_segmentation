@@ -63,10 +63,10 @@ def get_paths(directory):
 
     if not ortho_list:
 
-        raise Exception(f'ERROR: No compatible images found in {directory}.')
+        raise Exception(f'ERROR: No compatible files found in {directory}.')
 
 
-    print(f'Pointclouds to process: {len(ortho_list)}\n')
+    print(f'NPY files to process: {len(ortho_list)}\n')
 
     return ortho_list
 
