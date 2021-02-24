@@ -66,7 +66,7 @@ def get_paths(directory):
         raise Exception(f'ERROR: No compatible images found in {directory}.')
 
 
-    print(f'Pointclouds to process: {len(ortho_list)}')
+    print(f'Pointclouds to process: {len(ortho_list)}\n')
 
     return ortho_list
 
@@ -109,6 +109,7 @@ def main():
         for i in range(0, len(ml_set)):
 
             basename = os.path.splitext(os.path.basename(ml_set[i]))[0]
+            print(f'Processing {set_name} set: {basename}.')
             data, label = sub_sample(ml_set[i], args.num_points)
             if len(np.unique(label)) == 3:
                 agg_data[i] = data
