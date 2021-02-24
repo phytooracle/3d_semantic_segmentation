@@ -38,7 +38,7 @@ def get_args():
                         help='Output directory',
                         metavar='outdir',
                         type=str,
-                        default='ply2h5_out')
+                        default='npy2h5_out')
 
     parser.add_argument('-tp',
                         '--train_percentage',
