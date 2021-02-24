@@ -87,7 +87,6 @@ def sub_sample(filename, num_points):
     return data, label
 
 
-
 # --------------------------------------------------
 def main():
     """Make a jazz noise here"""
