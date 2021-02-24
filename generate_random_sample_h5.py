@@ -2,7 +2,7 @@
 """
 Author : Emmanuel Gonzalez
 Date   : 2021-02-24
-Purpose: Generate randomly-sampled H5 files from PLY point cloud data.
+Purpose: Generate randomly-sampled H5 files from NPY point cloud data.
 """
 
 import argparse
@@ -119,7 +119,7 @@ def main():
         f = h5py.File(out_path, 'w')
         data = f.create_dataset("data", data = agg_data)
         pid = f.create_dataset("label", data = agg_label)
-        print(f'Finished generating {set_name} set, see {out_path}.')
+        print(f'Finished generating {set_name} set, see {out_path}.\n')
 
 
 # --------------------------------------------------
