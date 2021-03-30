@@ -1,0 +1,47 @@
+Writing summary in train_log/00027_RandLANet_SemanticKITTI_tf.
+Initializing from scratch.
+=== EPOCH 0/10 ===
+loss train: 115.983  eval: 99.204
+acc train: 0.140  eval: 0.000
+iou train: 0.014  eval: 0.000
+Saved checkpoint at: main_log_dir/RandLANet_SemanticKITTI_tf/checkpoint/ckpt-1
+=== EPOCH 1/10 ===
+loss train: 54.380  eval: 136.367
+acc train: 0.606  eval: 0.000
+iou train: 0.060  eval: 0.000
+=== EPOCH 2/10 ===
+loss train: 30.248  eval: 57.793
+acc train: 0.815  eval: 0.500
+iou train: 0.081  eval: 0.270
+=== EPOCH 3/10 ===
+loss train: 18.748  eval: 63.917
+acc train: 0.900  eval: 0.500
+iou train: 0.091  eval: 0.270
+=== EPOCH 4/10 ===
+loss train: 12.259  eval: 69.103
+acc train: 0.931  eval: 0.308
+iou train: 0.094  eval: 0.114
+=== EPOCH 5/10 ===
+loss train: 9.055  eval: 76.318
+acc train: 0.945  eval: 0.283
+iou train: 0.100  eval: 0.107
+=== EPOCH 6/10 ===
+loss train: 7.070  eval: 77.139
+acc train: 0.955  eval: 0.500
+iou train: 0.107  eval: 0.268
+=== EPOCH 7/10 ===
+loss train: 6.006  eval: 78.583
+acc train: 0.962  eval: 0.500
+iou train: 0.122  eval: 0.268
+=== EPOCH 8/10 ===
+loss train: 5.536  eval: 84.610
+acc train: 0.956  eval: 0.405
+iou train: 0.122  eval: 0.216
+=== EPOCH 9/10 ===
+loss train: 5.127  eval: 89.476
+acc train: 0.959  eval: 0.337
+iou train: 0.143  eval: 0.189
+=== EPOCH 10/10 ===
+loss train: 4.690  eval: 92.152
+acc train: 0.966  eval: 0.320
+iou train: 0.143  eval: 0.185

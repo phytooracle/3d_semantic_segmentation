@@ -2,68 +2,49 @@
 
 ## Requirements
 
-### Setup dotenv
 ```bash
-conda install -c conda-forge python-dotenv 
+conda create --name open3d-ml python=3.6.9
+conda activate open3d-ml
+pip install --upgrade pip
+pip install open3d==0.11.2
+git clone https://github.com/intel-isl/Open3D-ML.git
+cd Open3D-ML
+
+pip install -r requirements-tensorflow.txt
+# Test it...
+python -c "import open3d.ml.tf as ml3d"
+
+
+cd ~/wherever_you_want_repo_to_live
+git clone https://github.com/phytooracle/3d_semantic_segmentation
+cd 3d_semantic_segmentation
+
+# Dotenv stuff
+pip install python-dotenv 
 cp sample.env .env
+# Edit .env so it has the correct project_dir
+vim .env
 ```
 
-## All about our custom implementation of open3d-ml
 
-### When might we get away without using a custom/hacked version?
 
-If the developers solve github issues #241 or #221 it'd may be possible to use the supervisely dataset class (see 3d_semantic_segmentation/src/misc_nathan/supervisely_dataset.py).
+## Data
 
-This is the current problematic error...
+First you need to DL the labeled data from supervise.ly
 
-```
-AttributeError: 'SemanticSegmentation' object has no attribute 'cfg_tb'
-```
+If you want, you can use this sample data of ~17 labeled lettuces" (https://de.cyverse.org/dl/d/C11B162C-DB18-4BA2-8E86-9B2F2FF03CF7/lettuce_semantic_segmentation.tar.gz)
 
-### LettuceKITTI
-
-You need to get the lettuce dataset from supervise.ly and then convert it to be formatted as a KITTI dataset.
-
-- download data from supervise.ly
-- edit src/data/ConvertSuperviselyToSemanticKitti.py
-    - data path
-    - output path
-    - training split
-- run src/data/ConvertSuperviselyToSemanticKitti.py
-
-### Getting python to see our version of open3d-ml
-
-There might be a better way to do this, but here's how I did it...
-
-```
-mv /home/equant/.local/lib/python3.8/site-packages/open3d/_ml3d /home/equant/.local/lib/python3.8/site-packages/open3d/_ml3d.original
-ln -s /path/to/repo/3d_semantic_segmentation/Open3D-ML/ml3d /home/equant/.local/lib/python3.8/site-packages/open3d/_ml3d
+```bash
+mkdir -p data/raw/lettuce_semantic_segmentation
+cp lettuce_semantic_segmentation.tar.gz data/raw/lettuce_semantic_segmentation
+tar -zxvf lettuce_semantic_segmentation.tar.gz
+python src/models/ConvertSuperviselyToGeneric.py
 ```
 
-### Running Training
+Now you should have a directory `data/formatted/season10_3D_labeled` with `*.bin` and `*.label` files in it.
 
-```
-cd Open3D-ML/scripts
-python run_pipeline.py -m RandLANet -p SemanticSegmentation -d SemanticKITTI --dataset_path /media/equant/7fe7f0a0-e17f-46d2-82d3-e7a8c25200bb/work/lettuceKITTI --split train tf
-```
 
-### Files within open3d-ml that were edited...
+## Scripts
 
-Until we find a way to create our own dataset class, we need to edit things related to the Semantic Kitti dataset within open3d-ml...
-
-| open3dml/Open3D-ML/ml3d/datasets/semantickitti.py             | Removed directories, need to change labels |
-|---------------------------------------------------------------|--------------------------------------------|
-| open3dml/Open3D-ML/ml3d/datasets/utils/dataprocessing.py      | changed load_label_kitti()                 |
-| randlanet_semantic3d.yml                                      | steps_per_epoch_train, max_epoch           |
-| semantic_segmentation.yml                                     | max_epoch                                  |
-| open3dml/Open3D-ML/ml3d/tf/pipelines/semantic_segmentation.py | max_epoch = 10 in __init__() args          |
-
-### Things we might need to edit
-
-Again, the yaml/yml files hurt my brain, but these files might be important as we move forward...
-
-- Open3D-ML/ml3d/datasets/utils/semantic-kitti.yaml
-- Open3D-ML/ml3d/configs/default_cfgs/semantickitti.yml
-- Open3D-ML/ml3d/configs/default_cfgs/randlanet.yml
-- Open3D-ML/ml3d/configs/randlanet_semantickitti.yml
+This is where the bulk of our to-do is.  See `src/models/vis_pred.py`
 
