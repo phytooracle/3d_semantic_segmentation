@@ -1,2 +1,2 @@
-model_checkpoint_path: "model_save_weights.foo"
-all_model_checkpoint_paths: "model_save_weights.foo"
+model_checkpoint_path: "last_model_save_weights.foo"
+all_model_checkpoint_paths: "last_model_save_weights.foo"

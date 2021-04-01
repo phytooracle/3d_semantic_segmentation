@@ -46,5 +46,17 @@ Now you should have a directory `data/formatted/season10_3D_labeled` with `*.bin
 
 ## Scripts
 
-This is where the bulk of our to-do is.  See `src/models/vis_pred.py`
+This is where the bulk of our to-do is.  See `src/models/train_pred_vis.py`
+
+## Training
+
+At the moment, training happens in `src/models/train_pred_vis.py`.
+
+An example of how to watch training in progress...
+```
+cd train_log
+cd 00028_RandLANet_SemanticKITTI_tf
+tensorboard --logdir=.
+firefox http://localhost:6006/
+```
 

@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 from supervisely_dataset import Supervisely
 
 USE_KITTI = False #sometimes we want to test with a the KITTI dataset.
-USE_SMALL_TESTING_SET = True
+OVERFIT = True
 
 import dotenv
 env_file = dotenv.find_dotenv()
@@ -33,6 +33,10 @@ def main():
     point_cloud_ids = [os.path.basename(x).split('.')[0] for x in glob.glob(os.path.join(data_path, "*.label"))]
     training_ids, test_val_ids = train_test_split(point_cloud_ids, train_size=0.75)
     testing_ids, validation_ids = train_test_split(test_val_ids, train_size=0.5)
+
+    if OVERFIT:
+        training_ids = point_cloud_ids
+        validation_ids = testing_ids = train_test_split(point_cloud_ids, train_size=0.5)[0]
 
 
     ## CONFIGURE ML
@@ -65,7 +69,7 @@ def main():
 
 
     model = ml3d.models.RandLANet()
-    pipeline = ml3d.pipelines.SemanticSegmentation(model, dataset=dataset, max_epoch=7)
+    pipeline = ml3d.pipelines.SemanticSegmentation(model, dataset=dataset, max_epoch=33 )
 
     pipeline.cfg_tb = {
         'readme': "Read me file",

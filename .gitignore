@@ -1,3 +1,9 @@
+#
+# exclude data from source control by default
+/data/raw/*
+/data/formatted/*
+
+train_log
 
 Open3D-ML/scripts/logs
 Open3D-ML/scripts/train_log
@@ -79,10 +85,6 @@ target/
 
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
-
-# exclude data from source control by default
-/data/raw/*
-/data/formatted/*
 
 # Mac OS-specific storage files
 .DS_Store
