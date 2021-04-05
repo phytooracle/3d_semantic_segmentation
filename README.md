@@ -38,7 +38,7 @@ If you want, you can use this sample data of ~17 labeled lettuces" (https://de.c
 mkdir -p data/raw/lettuce_semantic_segmentation
 cp lettuce_semantic_segmentation.tar.gz data/raw/lettuce_semantic_segmentation
 tar -zxvf lettuce_semantic_segmentation.tar.gz
-python src/models/ConvertSuperviselyToGeneric.py
+python src/data/ConvertSuperviselyToGeneric.py
 ```
 
 Now you should have a directory `data/formatted/season10_3D_labeled` with `*.bin` and `*.label` files in it.
