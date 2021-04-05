@@ -48,7 +48,7 @@ pipeline:
   batch_size: 1
   learning_rate: 0.01
   main_log_dir: ./logs
-  max_epoch: 15
+    #max_epoch: 15
   save_ckpt_freq: 2
   scheduler_gamma: 0.95
   test_batch_size: 1
