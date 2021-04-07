@@ -1,0 +1,5 @@
+open3d==0.11.2
+pytorch=1.6.0
+torchvision==0.7.0
+cudatoolkit=9.2
+supervisely
