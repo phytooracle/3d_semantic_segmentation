@@ -23,7 +23,10 @@ RUN apt-get install -y python3.6 \
                        libsm6 \
                        libxext6\
 		       ffmpeg\
-		       libgl1-mesa-glx
+		       libgl1-mesa-glx\
+		       vim\
+		       nvidia-cuda-toolkit
+
 
 RUN apt-get update
 RUN pip3 install --upgrade pip
@@ -32,7 +35,7 @@ RUN pip3 install --upgrade pip
 #RUN git clone https://github.cOm/intel-isl/Open3D-ML.git
 #RUN git clone https://github.com/phytooracle/3d_semantic_segmentation
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install -r updated_requirements.txt
 RUN pwd
 #WORKDIR /opt/Open3D-ML
 #RUN pwd
