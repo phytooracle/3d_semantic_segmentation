@@ -6,7 +6,7 @@ COPY . /opt
 USER root
 
 RUN apt-get update
-
+RUN cp sample.env .env
 # Changed python version (may need to add -dev back) also added git
 RUN apt-get install -y python3.6 \
                        python3-pip \
@@ -31,5 +31,4 @@ RUN ldconfig
 RUN apt-get install -y locales && locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 # Commented out for build testing
-#/home/travis/repos/3d_semantic_segmentation/src/models
-#ENTRYPOINT [ "/usr/bin/python3", "test.py" ]
+#ENTRYPOINT [ "/usr/bin/python3", "src/models/train_pred_vis.py" ]
