@@ -31,4 +31,4 @@ RUN ldconfig
 RUN apt-get install -y locales && locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 # Commented out for build testing
-#ENTRYPOINT [ "/usr/bin/python3", "src/models/train_pred_vis.py" ]
+ENTRYPOINT [ "/usr/bin/python3", "src/models/container_train_pred_vis.py" ]
