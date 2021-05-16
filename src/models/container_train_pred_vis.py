@@ -73,6 +73,8 @@ def main():
 
     ## LOAD DATA
 
+    args = get_args()
+
     #data_path = os.path.join(formatted_data_dir, 'season10_3D_labeled')
     data_path = args.indir
     model_dir = args.model_dir
