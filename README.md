@@ -60,3 +60,43 @@ tensorboard --logdir=.
 firefox http://localhost:6006/
 ```
 
+## HPC Training
+
+iget you data into xdisk
+```
+iget -PKVT /iplant/home/travis_simmons/3d_training_data.tar.gz
+```
+
+Login to a Puma Interactive node
+
+Run the training script
+```
+singularity build 3d_semantic_training.simg docker://phytooracle/3d_semantic_segmentation
+singularity run 3d_semantic_training.simg {directory containing your bin / label files} -m {directory containing your model file} -outdir {where you want the train_pred_vis outputs to land}
+```
+
+If you change the gihub repository, it will trigger an automatic build on dockerhub. It usually takes about ~20 mins to build.
+
+You can then rm 3d_semantic_training.simg and run the two lines above again.
+
+In order to avoid the 20 min wait time, it is often the best practice to install singularity on your local machine and ...
+
+```
+git clone https://github.com/phytooracle/3d_semantic_segmentation.git
+cd 3d_semantic_segmentation
+singularity build 3d_semantic_training.simg .
+singularity run 3d_semantic_training.simg {directory containing your bin / label files} -m {directory containing your model file} -outdir {where you want the train_pred_vis outputs to land}
+```
+Did not preform how you expected?
+```
+rm 3d_semantic_training.simg
+make changes to repo (don't commit)
+cd 3d_semantic_segmentation
+singularity build 3d_semantic_training.simg .
+singularity run 3d_semantic_training.simg {directory containing your bin / label files} -m {directory containing your model file} -outdir {where you want the train_pred_vis outputs to land}
+```
+Repeat till you are happy with the results, then commit changes.
+
+
+
+
