@@ -65,6 +65,7 @@ firefox http://localhost:6006/
 iget you data into xdisk
 ```
 iget -PKVT /iplant/home/travis_simmons/3d_training_data.tar.gz
+tar -zxvf 3d_training_data.tar.gz
 ```
 
 Login to a Puma Interactive node
