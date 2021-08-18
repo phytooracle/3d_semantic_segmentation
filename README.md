@@ -43,6 +43,15 @@ python src/data/ConvertSuperviselyToGeneric.py
 
 Now you should have a directory `data/formatted/season10_3D_labeled` with `*.bin` and `*.label` files in it.
 
+### ConvertSuperviselyToGeneric 
+
+```
+conda activate open3d-ml
+cd directory_with_uncompressed_supervisely_data_directory
+python ~/work/repos/3d_semantic_segmentation/src/data/ConvertSuperviselyToGeneric.py
+python /home/equant/work/repos/3d_semantic_segmentation/src/data/ConvertSuperviselyToGeneric.py -i full_auto_labeled -o full_auto_labeled-generic
+```
+
 
 ## Scripts
 
