@@ -19,11 +19,33 @@ import dotenv
 env_file = dotenv.find_dotenv()
 dotenv.load_dotenv(env_file)
 parsed_dotenv = dotenv.dotenv_values()
-formatted_data_dir = parsed_dotenv["formatted_data_dir"]
+#formatted_data_dir = parsed_dotenv["formatted_data_dir"]
 model_dir = parsed_dotenv["model_dir"]
 model_save_dir = os.path.join(parsed_dotenv["model_dir"], "nathan_tests") # HACK
 
 # ------------------------------
+def get_args():
+    
+    parser = argparse.ArgumentParser(
+        description='Convert supervisely datasets to a generic format (for semantic segmentation).',
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    parser.add_argument('-i',
+                        '--input',
+                        help='The path to the directory that contains the Supervisely dataset',
+                        metavar='str',
+                        type=str,
+                        required=True)
+
+    parser.add_argument('-o',
+                        '--output',
+                        help='The output directory to which the resulting generic dataset will be saved. ',
+                        metavar='str',
+                        type=str,
+                        required=True)
+
+    return parser.parse_args()
+
 
 def main():
 
