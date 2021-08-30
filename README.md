@@ -57,7 +57,7 @@ firefox http://localhost:6006/
 
 ### HPC Training
 
-#### put data on xdisk
+Put data on xdisk:
 ```
 iget -PKVT /iplant/home/travis_simmons/labeled_pcds.tar.gz
 tar -zxvf labeled_pcds.tar.gz

@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-import os, sys, glob
+#!/usr/bin/env python3
+import os, sys, glob, pdb
 import os.path
 import random
 import logging
@@ -18,14 +18,14 @@ import argparse
 
 
 USE_KITTI = False #sometimes we want to test with a the KITTI dataset.
-OVERFIT = True
+OVERFIT = False
 
 import dotenv
 env_file = dotenv.find_dotenv()
 dotenv.load_dotenv(env_file)
 parsed_dotenv = dotenv.dotenv_values()
 #formatted_data_dir = parsed_dotenv["formatted_data_dir"]
-#model_dir = parsed_dotenv["model_dir"]
+default_model_dir = parsed_dotenv["model_dir"]
 #model_save_dir = os.path.join(parsed_dotenv["model_dir"], "nathan_tests") # HACK
 #-------------------------------
 # added for container
@@ -47,7 +47,7 @@ def get_args():
                         '--model_dir',
                         help = 'directory containing the model to use',
                         type = str,
-                        default = './models')
+                        default = default_model_dir)
 
     parser.add_argument('-o',
                         '--outdir',
@@ -81,6 +81,7 @@ def main():
 
 
     point_cloud_ids = [os.path.basename(x).split('.')[0] for x in glob.glob(os.path.join(data_path, "*.label"))]
+    #pdb.set_trace()
     training_ids, test_val_ids = train_test_split(point_cloud_ids, train_size=0.75)
     testing_ids, validation_ids = train_test_split(test_val_ids, train_size=0.5)
 
@@ -91,6 +92,7 @@ def main():
 
     ## CONFIGURE ML
 
+    #pdb.set_trace()
     cfg_file = os.path.join(model_dir, "configs", "randlanet_season10.yml")
     cfg = _ml3d.utils.Config.load_from_file(cfg_file)
     cfg.dataset['train_dir'] = data_path
