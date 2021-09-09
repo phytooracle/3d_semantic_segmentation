@@ -15,6 +15,10 @@ from supervisely_dataset import Supervisely
 # added for container 
 import argparse
 
+"""
+./container_train_pred_vis.py /media/equant/7fe7f0a0-e17f-46d2-82d3-e7a8c25200bb/work/raw_data/season_10_lettuce_yr_2020/level_3/scanner3DTop/full_auto_labeled-generic
+
+"""
 
 
 USE_KITTI = False #sometimes we want to test with a the KITTI dataset.

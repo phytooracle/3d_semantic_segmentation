@@ -3,6 +3,12 @@ import open3d as o3d
 import json
 import pandas as pd
 
+import dotenv
+env_file = dotenv.find_dotenv()
+dotenv.load_dotenv(env_file)
+parsed_dotenv = dotenv.dotenv_values()
+mal_dir = parsed_dotenv['mal_data_dir']
+
 TESTING = False
 
 color_dictionary = {
@@ -73,9 +79,6 @@ def custom_key_action_without_kb_repeat_delay(pcd, df, pcd_name, save_results_pa
     vis.run()
 
 
-mal_dir = "/media/equant/7fe7f0a0-e17f-46d2-82d3-e7a8c25200bb/work" + \
-          "/raw_data/season_10_lettuce_yr_2020/level_3/scanner3DTop/MAL-3000_examples" + \
-          "/auto_project/"
 pcd_dir = os.path.join(mal_dir, "ds0", "pointcloud")
 ann_dir = os.path.join(mal_dir, "ds0", "ann")
 
