@@ -89,7 +89,7 @@ rm 3d_semantic_training.simg
 make changes to repo (don't commit)
 cd 3d_semantic_segmentation
 singularity build 3d_semantic_training.simg .
-singularity run 3d_semantic_training.simg {directory containing your bin / label files} -m {directory containing your model file} -outdir {where you want the train_pred_vis outputs to land}
+singularity run 3d_semantic_training.simg {directory containing your bin / label files} -m {directory containing your model file} -o {where you want the train_pred_vis outputs to land}
 ```
 Repeat till you are happy with the results, then commit changes.
 
