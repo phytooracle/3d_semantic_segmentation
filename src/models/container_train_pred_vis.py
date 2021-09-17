@@ -20,7 +20,8 @@ import argparse
 
 """
 
-
+TESTING = True
+GUI = True
 USE_KITTI = False #sometimes we want to test with a the KITTI dataset.
 OVERFIT = False
 
@@ -63,16 +64,6 @@ def get_args():
     return parser.parse_args()
 
 
-# ------------------------------
-#project_name = 3d_semantic_segmentation
-#project_dir  = ${HOME}/work/repos/${project_name}
-
-#data_dir     = ${project_dir}/data
-#raw_data_dir = ${data_dir}/raw
-#formatted_data_dir = ${data_dir}/formatted
-
-#model_dir     = ${project_dir}/models
-#-------------------------------
 def main():
 
     ## LOAD DATA
@@ -84,7 +75,12 @@ def main():
     model_dir = args.model_dir
 
 
-    point_cloud_ids = [os.path.basename(x).split('.')[0] for x in glob.glob(os.path.join(data_path, "*.label"))]
+    if TESTING:
+        point_cloud_ids = [os.path.basename(x).split('.')[0] for x in glob.glob(os.path.join(data_path, "*.label"))][:10]
+        max_epoch = 5
+    else:
+        point_cloud_ids = [os.path.basename(x).split('.')[0] for x in glob.glob(os.path.join(data_path, "*.label"))]
+        max_epoch = 33
     #pdb.set_trace()
     training_ids, test_val_ids = train_test_split(point_cloud_ids, train_size=0.75)
     testing_ids, validation_ids = train_test_split(test_val_ids, train_size=0.5)
@@ -106,7 +102,8 @@ def main():
     cfg.dataset['test_split']       = testing_ids
     #cfg.dataset['val_split']       = validation_ids
     cfg.dataset['validation_split'] = validation_ids
-    #cfg.dataset['resample_n'] = 5000  # resample each pc to 5000 points
+    if TESTING:
+        cfg.dataset['resample_n'] = 5000  # resample each pc to 5000 points
 
     from supervisely_dataset import Supervisely
     dataset = Supervisely(dataset_path=data_path, **cfg.dataset)
@@ -125,7 +122,7 @@ def main():
 
 
     model = ml3d.models.RandLANet()
-    pipeline = ml3d.pipelines.SemanticSegmentation(model, dataset=dataset, max_epoch=33 )
+    pipeline = ml3d.pipelines.SemanticSegmentation(model, dataset=dataset, max_epoch=max_epoch )
 
     pipeline.cfg_tb = {
         'readme': "Read me file",
@@ -146,10 +143,11 @@ def main():
     pipeline.model.save_weights(os.path.join(args.outdir, "last_model_save_weights.foo"))
     pipeline.model.save(os.path.join(args.outdir, "last_model_save.foo"))
 
-    #for split_type in ['validation', 'test', 'training']:
-    for split_type in ['test', 'training']:
-        pcs_with_pred = pred_custom_data(dataset.get_split(split_type), pipeline)
-        visualize_pcs_with_pred(pcs_with_pred)
+    if GUI:
+        #for split_type in ['validation', 'test', 'training']:
+        for split_type in ['test', 'training']:
+            pcs_with_pred = pred_custom_data(dataset.get_split(split_type), pipeline)
+            visualize_pcs_with_pred(pcs_with_pred)
 
     ## VIEW
 
