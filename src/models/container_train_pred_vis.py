@@ -20,8 +20,8 @@ import argparse
 
 """
 
-TESTING = True
-GUI = True
+TESTING = False
+GUI = False
 USE_KITTI = False #sometimes we want to test with a the KITTI dataset.
 OVERFIT = False
 
@@ -54,6 +54,20 @@ def get_args():
                         type = str,
                         default = default_model_dir)
 
+    parser.add_argument('-t',
+                        '--testing',
+                        help='Testing',
+                        dest='TESTING',
+                        action='store_true',
+                        default=False)
+
+    parser.add_argument('-g',
+                        '--gui',
+                        help='Use Gui',
+                        dest='GUI',
+                        action='store_true',
+                        default=False)
+
     parser.add_argument('-o',
                         '--outdir',
                         help='Output directory',
@@ -73,9 +87,11 @@ def main():
     #data_path = os.path.join(formatted_data_dir, 'season10_3D_labeled')
     data_path = args.indir
     model_dir = args.model_dir
-
+    GUI = args.GUI
+    TESTING = args.TESTING
 
     if TESTING:
+        print("TESTING MODE IS ON!")
         point_cloud_ids = [os.path.basename(x).split('.')[0] for x in glob.glob(os.path.join(data_path, "*.label"))][:10]
         max_epoch = 5
     else:
